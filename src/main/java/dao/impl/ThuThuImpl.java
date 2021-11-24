@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -58,7 +60,25 @@ public class ThuThuImpl extends UnicastRemoteObject implements ThuThuDao{
 		}
 		return thuThu;
 	}
-
+	
+	public List<ThuThu> getAllThuThu() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<ThuThu> thuThu = new ArrayList<ThuThu>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select tt from ThuThu tt";
+			thuThu = (List<ThuThu>) session.createQuery(sql).getResultList();
+			
+			return thuThu;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return thuThu;
+	}
+	
 	public boolean updateThuThu(ThuThu thuThu) throws RemoteException {
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
@@ -107,4 +127,6 @@ public class ThuThuImpl extends UnicastRemoteObject implements ThuThuDao{
 		}
 		return false;
 	}
+
+	
 }

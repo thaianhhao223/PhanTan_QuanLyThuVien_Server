@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,6 +12,7 @@ import org.hibernate.Session;
 
 import dao.LoaiSachDao;
 import entity.LoaiSach;
+import entity.PhieuMuon;
 import entity.Sach;
 import util.HibernateUtil;
 
@@ -100,6 +103,23 @@ public class LoaiSachImpl extends UnicastRemoteObject implements LoaiSachDao{
 			tr.rollback();
 		}
 		return false;
+	}
+	public List<LoaiSach> getAllLoaiSach() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<LoaiSach> list = new ArrayList<LoaiSach>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select ls from LoaiSach ls";
+			list = (List<LoaiSach>) session.createQuery(sql).getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
 	}
 
 }

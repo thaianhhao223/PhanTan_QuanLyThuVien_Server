@@ -9,9 +9,11 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 public class GeneratorForThuThuId implements IdentifierGenerator{
-	private String prefix = "ThuThu";
+	private String prefix;
 	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 		// TODO Auto-generated method stub
+		prefix = "ThuThu";
+		
 		Calendar calendar = Calendar.getInstance();
 		String year = String.valueOf(calendar.get(Calendar.YEAR));
 		String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);// Calender trả về giá trị tháng từ 0 - 11

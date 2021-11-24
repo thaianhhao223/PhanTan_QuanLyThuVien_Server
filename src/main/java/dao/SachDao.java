@@ -30,6 +30,9 @@ public interface SachDao extends Remote{
 	 * @throws RemoteException
 	 */
 	public Sach getSachById(String id) throws RemoteException;
+	
+	
+	public List<Sach> getAllSach() throws RemoteException;
 	/**
 	 * @param ten
 	 * @return Trả về một danh sách các cuốn sách. nếu không tìm thấy thì trả về chuỗi rỗng

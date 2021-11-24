@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -10,6 +12,7 @@ import org.hibernate.Session;
 
 import dao.DocGiaDao;
 import entity.DocGia;
+import entity.LoaiSach;
 import entity.Sach;
 import util.HibernateUtil;
 
@@ -103,6 +106,24 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 			tr.rollback();
 		}
 		return false;
+	}
+
+	public List<DocGia> getAllDocGia() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<DocGia> list = new ArrayList<DocGia>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select dg from DocGia dg";
+			list = (List<DocGia>) session.createQuery(sql).getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
 	}
 
 }

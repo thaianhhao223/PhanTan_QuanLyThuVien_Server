@@ -59,7 +59,24 @@ public class SachImpl extends UnicastRemoteObject implements SachDao{
 		}
 		return sach;
 	}
-
+	
+	public List<Sach> getAllSach() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<Sach> sach = new ArrayList<Sach>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select s from Sach s";
+			sach = (List<Sach>) session.createQuery(sql).getResultList();
+			
+			return sach;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return sach;
+	}
 	public List<Sach> getSachByName(String ten) throws RemoteException {
 		// TODO Auto-generated method stub
 		List<Sach> sach = new ArrayList<Sach>();
@@ -166,4 +183,6 @@ public class SachImpl extends UnicastRemoteObject implements SachDao{
 		}
 		return false;
 	}
+
+	
 }

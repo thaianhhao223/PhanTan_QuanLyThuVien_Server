@@ -2,6 +2,8 @@ package dao.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -187,6 +189,23 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 			tr.rollback();
 		}
 		return false;
+	}
+	public List<PhieuMuon> getAllPhieuMuon() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<PhieuMuon> list = new ArrayList<PhieuMuon>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select pm from PhieuMuon pm";
+			list = (List<PhieuMuon>) session.createQuery(sql).getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
 	}
 	
 }

@@ -2,6 +2,7 @@ package dao.impl;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import org.hibernate.Session;
 import dao.ChiTietPhieuMuonDao;
 import entity.ChiTietPhieuMuon;
 import entity.ChiTietPhieuMuonFK;
+import entity.DocGia;
 import entity.PhieuMuon;
 import entity.Sach;
 import util.HibernateUtil;
@@ -178,5 +180,23 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 			
 		}
 		return false;
+	}
+
+	public List<ChiTietPhieuMuon> getChiTietPhieuMuonByIdPhieuMuon(String phieuMuonId) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<ChiTietPhieuMuon> list = new ArrayList<ChiTietPhieuMuon>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select ctpm from ChiTietPhieuMuon ctpm where phieuMuonId = :id";
+			list = (List<ChiTietPhieuMuon>) session.createQuery(sql).setParameter("id", phieuMuonId).getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
 	}
 }

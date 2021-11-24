@@ -2,6 +2,7 @@ package dao;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import entity.LoaiSach;
 import entity.PhieuMuon;
@@ -26,6 +27,8 @@ public interface PhieuMuonDao extends Remote {
 	 * @throws RemoteException
 	 */
 	public PhieuMuon getPhieuMuonById(String id) throws RemoteException;
+	
+	public List<PhieuMuon> getAllPhieuMuon() throws RemoteException;
 	
 	public boolean setThuThuForPhieuMuon(PhieuMuon phieuMuon, String ThuThuId) throws RemoteException;
 	public boolean setDocGiaForPhieuMuon(PhieuMuon phieuMuon, String docGiaId) throws RemoteException;
