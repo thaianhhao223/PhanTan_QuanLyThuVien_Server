@@ -89,13 +89,18 @@ public class App {
 		
 //		java.util.Date date = new java.util.Date();
 //		Date ngayMuon = new Date(date.getTime());
-//		Date ngayTra = Date.valueOf("2021-11-27");
+//		Date ngayTra = Date.valueOf("2021-11-23");
 //		
 //		DocGia docGia = docGiaDao.getDocGiaById("DocGia20211123716576");
 //		ThuThu thuThu = thuThuDao.getThuThuById("ThuThu20211123985775");
 //		PhieuMuon phieuMuon = new PhieuMuon(ngayMuon, ngayTra, "Chưa trả", thuThu, docGia);
 //		String check = phieuMuonDao.createPhieuMuon(phieuMuon);
 //		System.out.println(check);
+		
+		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonQuaHan();
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).toString());
+		}
 		
 		ChiTietPhieuMuonDao chiTietPhieuMuonDao = new ChiTietPhieuMuonImpl();
 	

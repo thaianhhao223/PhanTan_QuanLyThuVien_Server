@@ -29,6 +29,9 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 	public String createPhieuMuon(PhieuMuon phieuMuon)
 			throws RemoteException {
 		// TODO Auto-generated method stub
+		if(phieuMuon.getNgayTra().before(phieuMuon.getNgayMuon())) {
+			return "Ngày trả không phù hợp";
+		}
 		EntityTransaction tr = em.getTransaction();
 		try {
 			tr.begin();
@@ -198,6 +201,23 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 		try {
 			
 			String sql = "Select pm from PhieuMuon pm";
+			list = (List<PhieuMuon>) session.createQuery(sql).getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	}
+	public List<PhieuMuon> getPhieuMuonQuaHan() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<PhieuMuon> list = new ArrayList<PhieuMuon>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select pm from PhieuMuon pm where ngayTra < current_date()";
 			list = (List<PhieuMuon>) session.createQuery(sql).getResultList();
 			
 			return list;
