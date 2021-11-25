@@ -97,7 +97,14 @@ public class App {
 //		String check = phieuMuonDao.createPhieuMuon(phieuMuon);
 //		System.out.println(check);
 		
-		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonQuaHan();
+//		phieuMuonDao.setTrangThaiDaTraById("PhieuMuon20211125120513");
+//		
+//		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonQuaHan();
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
+		
+		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonDaTra();
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).toString());
 		}

@@ -32,6 +32,8 @@ public interface PhieuMuonDao extends Remote {
 	
 	public List<PhieuMuon> getPhieuMuonQuaHan() throws RemoteException;
 	
+	public List<PhieuMuon> getPhieuMuonDaTra() throws RemoteException;
+	
 	public boolean setThuThuForPhieuMuon(PhieuMuon phieuMuon, String ThuThuId) throws RemoteException;
 	public boolean setDocGiaForPhieuMuon(PhieuMuon phieuMuon, String docGiaId) throws RemoteException;
 	public boolean setThuThuAndDocGiaForPhieuMuon(PhieuMuon phieuMuon, String ThuThuId, String docGiaId) throws RemoteException;

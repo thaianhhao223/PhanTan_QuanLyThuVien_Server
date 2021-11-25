@@ -217,8 +217,25 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 		EntityTransaction tr = em.getTransaction();
 		try {
 			
-			String sql = "Select pm from PhieuMuon pm where ngayTra < current_date()";
-			list = (List<PhieuMuon>) session.createQuery(sql).getResultList();
+			String sql = "Select pm from PhieuMuon pm where ngayTra < current_date() and trangThai = :trangThai";
+			list = (List<PhieuMuon>) session.createQuery(sql).setParameter("trangThai", "Chưa trả").getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	}
+	public List<PhieuMuon> getPhieuMuonDaTra() throws RemoteException {
+		// TODO Auto-generated method stub
+		List<PhieuMuon> list = new ArrayList<PhieuMuon>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select pm from PhieuMuon pm where trangThai = :trangThai";
+			list = (List<PhieuMuon>) session.createQuery(sql).setParameter("trangThai", "Đã trả").getResultList();
 			
 			return list;
 		} catch (Exception e) {
