@@ -85,6 +85,10 @@ public class App {
 //		if(docGiaDao.addDocGia(docGia))
 //			System.out.println("Thêm đọc giả thành công");
 		
+//		DocGia docGia =  docGiaDao.getDocGiaById("DocGia20211123716576");
+//		docGia.setChucVu("Trưởng khoa");
+//		docGiaDao.updateDocGia(docGia);
+		
 		PhieuMuonDao phieuMuonDao = new PhieuMuonImpl();
 		
 //		java.util.Date date = new java.util.Date();
@@ -104,10 +108,10 @@ public class App {
 //			System.out.println(list.get(i).toString());
 //		}
 		
-		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonDaTra();
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).toString());
-		}
+//		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonDaTra();
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
 		
 		ChiTietPhieuMuonDao chiTietPhieuMuonDao = new ChiTietPhieuMuonImpl();
 	
