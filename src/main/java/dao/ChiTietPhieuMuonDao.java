@@ -20,7 +20,7 @@ public interface ChiTietPhieuMuonDao extends Remote{
 	
 	public boolean setTraSachByIdSachAndIdPhieuMuon(String phieuMuonId, String SachId) throws RemoteException;
 	
-	public boolean updateChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
+	public String updateChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
 	
 	public boolean deleteChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
 }

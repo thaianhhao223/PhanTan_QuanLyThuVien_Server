@@ -172,9 +172,18 @@ public class SachImpl extends UnicastRemoteObject implements SachDao{
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		Sach sachUpdate = new Sach();
+		sachUpdate = session.get(Sach.class, sach.getId());
+		sachUpdate.setDonGia(sach.getDonGia());
+		sachUpdate.setLoaiSach(sach.getLoaiSach());
+		sachUpdate.setNamXuatBan(sach.getNamXuatBan());
+		sachUpdate.setNhaXuatBan(sach.getNhaXuatBan());
+		sachUpdate.setSoLuongBanIn(sach.getSoLuongBanIn());
+		sachUpdate.setTacGia(sach.getTacGia());
+		sachUpdate.setTenSach(sach.getTenSach());
 		try {
 			tr.begin();
-			session.update(sach);
+			session.update(sachUpdate);
 			tr.commit();
 			return true;
 		} catch (Exception e) {

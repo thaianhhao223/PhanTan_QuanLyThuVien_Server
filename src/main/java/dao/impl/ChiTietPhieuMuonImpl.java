@@ -111,20 +111,37 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 		return chiTietPhieuMuon;
 	}
 
-	public boolean updateChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException {
+	public String updateChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException {
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		if(chiTietPhieuMuon.getSoLuong() < 1)
+			return "Số lượng ít hơn 1";
 		try {
-			tr.begin();
-			session.update(chiTietPhieuMuon);
-			tr.commit();
-			return true;
+			Sach sach = em.find(Sach.class, chiTietPhieuMuon.getSach().getId());
+			
+			String sql = "Select sum(soLuong) from ChiTietPhieuMuon where sachId = :id and trangThai = 'Chưa trả'";
+			Object object = (Object) session.createQuery(sql).setParameter("id", chiTietPhieuMuon.getSach().getId()).getSingleResult();
+			System.out.println(object.toString());
+			int count = Integer.parseInt(object.toString());
+			
+			if( count + chiTietPhieuMuon.getSoLuong() <= sach.getSoLuongBanIn()) {
+				tr.begin();
+				ChiTietPhieuMuon chiTietPhieuMuonUpdate = new ChiTietPhieuMuon();
+				chiTietPhieuMuonUpdate.setSoLuong(chiTietPhieuMuon.getSoLuong());
+				chiTietPhieuMuonUpdate.setTrangThai(chiTietPhieuMuon.getTrangThai());
+				session.update(chiTietPhieuMuonUpdate);
+				tr.commit();
+				return "Thêm thành công";
+			}else {
+				return "Không đủ số sách";
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			tr.rollback();
 		}
-		return false;
+		return "Thêm thất bại";
 	}
 
 	public boolean deleteChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException {

@@ -83,9 +83,15 @@ public class ThuThuImpl extends UnicastRemoteObject implements ThuThuDao{
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		ThuThu thuThuUpdate = new ThuThu();
+		thuThuUpdate = session.find(ThuThu.class, thuThu.getId());
+		thuThuUpdate.setDiaChi(thuThu.getDiaChi());
+		thuThuUpdate.setEmail(thuThu.getEmail());
+		thuThuUpdate.setHoTen(thuThu.getHoTen());
+		thuThuUpdate.setSoDienThoai(thuThu.getSoDienThoai());
 		try {
 			tr.begin();
-			session.update(thuThu);
+			session.update(thuThuUpdate);
 			tr.commit();
 			return true;
 		} catch (Exception e) {

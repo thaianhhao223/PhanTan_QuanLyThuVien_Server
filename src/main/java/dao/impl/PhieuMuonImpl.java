@@ -151,9 +151,16 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		PhieuMuon phieuMuonUpdate = new PhieuMuon();
+		phieuMuonUpdate = session.find(PhieuMuon.class, phieuMuon.getId());
+		phieuMuonUpdate.setDocGia(phieuMuon.getDocGia());
+		phieuMuonUpdate.setNgayMuon(phieuMuon.getNgayMuon());
+		phieuMuonUpdate.setNgayTra(phieuMuon.getNgayTra());
+		phieuMuonUpdate.setThuThu(phieuMuon.getThuThu());
+		phieuMuonUpdate.setTrangThai(phieuMuon.getTrangThai());
 		try {
 			tr.begin();
-			session.update(phieuMuon);
+			session.update(phieuMuonUpdate);
 			tr.commit();
 			return true;
 		} catch (Exception e) {

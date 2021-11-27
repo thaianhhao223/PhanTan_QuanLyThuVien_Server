@@ -62,9 +62,12 @@ public class LoaiSachImpl extends UnicastRemoteObject implements LoaiSachDao{
 		// TODO Auto-generated method stub
 		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		LoaiSach loaiSachUpdate = new LoaiSach();
+		loaiSachUpdate = session.find(LoaiSach.class, loaiSach.getId());
+		loaiSachUpdate.setTenLoai(loaiSach.getTenLoai());
 		try {
 			tr.begin();
-			session.update(loaiSach);
+			session.update(loaiSachUpdate);
 			tr.commit();
 			return true;
 		} catch (Exception e) {

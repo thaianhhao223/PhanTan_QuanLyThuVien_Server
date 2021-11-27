@@ -23,9 +23,10 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 	 */
 	private static final long serialVersionUID = -4212721151697135624L;
 	private EntityManager em;
-	
+	private Session session;
 	public DocGiaImpl() throws RemoteException {
 		em = HibernateUtil.getInstance().getEntityManager();
+		session = em.unwrap(Session.class);
 	}
 	
 	public boolean addDocGia(DocGia docGia) throws RemoteException {
@@ -33,9 +34,7 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 		EntityTransaction tr = em.getTransaction();
 		try {
 			tr.begin();
-			
 			em.persist(docGia);
-			
 			tr.commit();
 			return true;
 		} catch (Exception e) {
@@ -61,11 +60,18 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 
 	public boolean updateDocGia(DocGia docGia) throws RemoteException {
 		// TODO Auto-generated method stub
-		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
+		DocGia docGiaupdate = new DocGia();
 		try {
 			tr.begin();
-			session.update(docGia);
+			// Không thể sử dụng entity được truyền trực tiếp vào, vì sẽ lỗi trùng entity do session quản lý.
+			docGiaupdate = (DocGia) em.find(DocGia.class, docGia.getId());
+			docGiaupdate.setChucVu(docGia.getChucVu());
+			docGiaupdate.setChuyenNganh(docGia.getChuyenNganh());
+			docGiaupdate.setEmail(docGia.getEmail());
+			docGiaupdate.setHoTen(docGia.getHoTen());
+			docGiaupdate.setSoDienThoai(docGia.getSoDienThoai());
+			session.update(docGiaupdate);
 			tr.commit();
 			return true;
 		} catch (Exception e) {
@@ -77,7 +83,6 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 
 	public boolean deleteDocGiaById(String id) throws RemoteException {
 		// TODO Auto-generated method stub
-		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
 		try {
 			tr.begin();
@@ -94,7 +99,6 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 
 	public boolean deleteDocGia(DocGia docGia) throws RemoteException {
 		// TODO Auto-generated method stub
-		Session session = em.unwrap(Session.class);
 		EntityTransaction tr = session.getTransaction();
 		try {
 			tr.begin();
@@ -111,13 +115,11 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 	public List<DocGia> getAllDocGia() throws RemoteException {
 		// TODO Auto-generated method stub
 		List<DocGia> list = new ArrayList<DocGia>();
-		Session session = em.unwrap(Session.class);;
 		EntityTransaction tr = em.getTransaction();
 		try {
 			
 			String sql = "Select dg from DocGia dg";
 			list = (List<DocGia>) session.createQuery(sql).getResultList();
-			
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
