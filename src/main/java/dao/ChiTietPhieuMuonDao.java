@@ -6,6 +6,7 @@ import java.util.List;
 
 import entity.ChiTietPhieuMuon;
 import entity.DocGia;
+import entity.Sach;
 
 public interface ChiTietPhieuMuonDao extends Remote{
 	public String addChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
@@ -23,4 +24,8 @@ public interface ChiTietPhieuMuonDao extends Remote{
 	public String updateChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
 	
 	public boolean deleteChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException;
+	
+	public boolean deleteChiTietPhieuMuonByPhieuMuonId(String phieuMuonId) throws RemoteException;
+	
+	public boolean isSachEnough(Sach sach, int soLuong) throws RemoteException;
 }

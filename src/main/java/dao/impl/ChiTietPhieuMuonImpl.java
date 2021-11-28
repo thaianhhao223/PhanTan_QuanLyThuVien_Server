@@ -39,13 +39,18 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 			
 			String sql = "Select sum(soLuong) from ChiTietPhieuMuon where sachId = :id and trangThai = 'Chưa trả'";
 			Object object = (Object) session.createQuery(sql).setParameter("id", chiTietPhieuMuon.getSach().getId()).getSingleResult();
-			int count = (Integer) object;
+			int count = 0;
+			if(object != null) {
+				count = Integer.parseInt(object.toString());
+			}
 			Sach sach = (Sach) em.find(Sach.class, chiTietPhieuMuon.getSach().getId());
 			
 			if( count + chiTietPhieuMuon.getSoLuong() <= sach.getSoLuongBanIn()) {
+				
 				tr.begin();
 				em.persist(chiTietPhieuMuon);
 				tr.commit();
+				session.clear();
 				return "Thêm thành công";
 			}else {
 				return "Không đủ số sách";
@@ -71,9 +76,12 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 			ChiTietPhieuMuon chiTietPhieuMuon = new ChiTietPhieuMuon(sach, phieuMuon, soLuong, "Chưa trả");
 			
 			String sql = "Select sum(soLuong) from ChiTietPhieuMuon where sachId = :id and trangThai = 'Chưa trả'";
-			Object object = (Object) session.createQuery(sql).setParameter("id", chiTietPhieuMuon.getSach().getId()).getSingleResult();
-			System.out.println(object.toString());
-			int count = Integer.parseInt(object.toString());
+			Object object = (Object) session.createQuery(sql).setParameter("id", sachId).getSingleResult();
+			int count = 0;
+			if(object != null) {
+				count = Integer.parseInt(object.toString());
+			}
+			System.out.println(count);
 			
 			if( count + chiTietPhieuMuon.getSoLuong() <= sach.getSoLuongBanIn()) {
 				tr.begin();
@@ -215,5 +223,45 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 			
 		}
 		return list;
+	}
+
+	public boolean isSachEnough(Sach sach, int soLuong) throws RemoteException {
+		// TODO Auto-generated method stub
+		Session session = em.unwrap(Session.class);
+		if(soLuong < 1)
+			return false;
+		try {
+			String sql = "Select sum(soLuong) from ChiTietPhieuMuon where sachId = :id and trangThai = 'Chưa trả'";
+			Object object = (Object) session.createQuery(sql).setParameter("id", sach.getId()).getSingleResult();
+			int count = 0;
+			if(object != null) {
+				count = Integer.parseInt(object.toString());
+			}
+			if( count + soLuong <= sach.getSoLuongBanIn()) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean deleteChiTietPhieuMuonByPhieuMuonId(String phieuMuonId) throws RemoteException {
+		// TODO Auto-generated method stub
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			tr.begin();
+			String sql = "delete from ChiTietPhieuMuon ctpm where phieuMuonId = :id";
+			session.createQuery(sql).setParameter("id", phieuMuonId).executeUpdate();
+			tr.commit();
+			return true;
+		} catch (Exception e) {
+			tr.rollback();
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

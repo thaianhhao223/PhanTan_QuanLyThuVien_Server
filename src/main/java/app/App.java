@@ -65,7 +65,7 @@ public class App {
 		
 //		sachDao.addLoaiSachForSach("SACH20211121959724", "LoaiSach20211121291558");
 //		
-//		LoaiSach loaiSach = new LoaiSach("Tác phẩm kinh điển");
+//		LoaiSach loaiSach = new LoaiSach("Thiếu nhi");
 //		if(loaiSachDao.addLoaiSach(loaiSach))
 //			System.out.println("Thêm loại sách thành công!");
 		
@@ -115,7 +115,14 @@ public class App {
 		
 		ChiTietPhieuMuonDao chiTietPhieuMuonDao = new ChiTietPhieuMuonImpl();
 	
-//		String check = chiTietPhieuMuonDao.addChiTietPhieuMuonById("PhieuMuon20211123932560", "SACH20211121755330",1);
+//		String check = chiTietPhieuMuonDao.addChiTietPhieuMuonById("PhieuMuon20211123289177", "SACH20211123175734",1);
 //		System.out.println(check);
+		
+//		Sach sach = sachDao.getSachById("SACH20211123175734");
+//		boolean ktr = chiTietPhieuMuonDao.isSachEnough(sach, 5);
+//		System.out.println(ktr);
+		
+//		boolean ktr = chiTietPhieuMuonDao.deleteChiTietPhieuMuonByPhieuMuonId("PhieuMuon20211128192465");
+//		System.out.println(ktr);
 	}
 }
