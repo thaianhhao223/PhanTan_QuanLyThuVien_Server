@@ -128,4 +128,26 @@ public class DocGiaImpl extends UnicastRemoteObject implements DocGiaDao{
 		return list;
 	}
 
+	public List<DocGia> findDocGiaByKeyWord(String keyword) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<DocGia> list = new ArrayList<DocGia>();
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select dg from DocGia dg where hoTen like :hoTen or soDienThoai like :soDienThoai or email like :email or chucVu like :chucVu or chuyenNganh like :chuyenNganh";
+			list = (List<DocGia>) session.createQuery(sql)
+					.setParameter("hoTen", "%"+keyword+"%")
+					.setParameter("soDienThoai", "%"+keyword+"%")
+					.setParameter("email", "%"+keyword+"%")
+					.setParameter("chucVu", "%"+keyword+"%")
+					.setParameter("chuyenNganh", "%"+keyword+"%")
+					.getResultList();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	}
+
 }

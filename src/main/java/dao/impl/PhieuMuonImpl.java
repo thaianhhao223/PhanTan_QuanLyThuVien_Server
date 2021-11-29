@@ -251,5 +251,26 @@ public class PhieuMuonImpl extends UnicastRemoteObject implements PhieuMuonDao{
 		}
 		return list;
 	}
+	public List<PhieuMuon> findPhieuMuonByKeyWord(String keyword) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<PhieuMuon> list = new ArrayList<PhieuMuon>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select pm from PhieuMuon pm join pm.docGia dg where trangThai like :trangThai or pm.id like :id or dg.hoTen like :hoTen";
+			list = (List<PhieuMuon>) session.createQuery(sql)
+					.setParameter("trangThai", "%"+keyword+"%")
+					.setParameter("id", "%"+keyword+"%")
+					.setParameter("hoTen", "%"+keyword+"%")
+					.getResultList();
+			
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return list;
+	}
 	
 }

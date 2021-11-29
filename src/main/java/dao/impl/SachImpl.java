@@ -193,5 +193,28 @@ public class SachImpl extends UnicastRemoteObject implements SachDao{
 		return false;
 	}
 
+	public List<Sach> findSachByKeyWord(String keyword) throws RemoteException {
+		// TODO Auto-generated method stub
+		List<Sach> sach = new ArrayList<Sach>();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			
+			String sql = "Select s from Sach s where nhaXuatBan like :nhaXuatBan or tacGia like :tacGia or tenSach like :tenSach";
+			sach = (List<Sach>) session.createQuery(sql)
+					.setParameter("nhaXuatBan", "%"+keyword+"%")
+					.setParameter("tacGia", "%"+keyword+"%")
+					.setParameter("tenSach", "%"+keyword+"%")
+					.getResultList();
+			
+			return sach;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return sach;
+	}
+
 	
 }

@@ -54,6 +54,10 @@ public class App {
 //			System.out.println(listsach.get(i).toString());
 //		}
 		
+//		List<Sach> listsach = sachDao.findSachByKeyWord("Sách Việt");
+//		for (int i = 0; i < listsach.size(); i++) {
+//			System.out.println(listsach.get(i).toString());
+//		}
 		
 //		List<Sach> listsach = sachDao.getSachByProducer("Sách Việt");
 //		for (int i = 0; i < listsach.size(); i++) {
@@ -80,6 +84,10 @@ public class App {
 		
 		DocGiaDao docGiaDao = new DocGiaImpl();
 		
+//		List<DocGia> list = docGiaDao.findDocGiaByKeyWord("ha");
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
 //		DocGia docGia = new DocGia("Thái Anh Hào", "0923021093", "thaihao@gmail.com", "Sinh viên", "Công nghệ thông tin");
 //		
 //		if(docGiaDao.addDocGia(docGia))
@@ -91,12 +99,13 @@ public class App {
 		
 		PhieuMuonDao phieuMuonDao = new PhieuMuonImpl();
 		
-//		java.util.Date date = new java.util.Date();
+		java.util.Date date = new java.util.Date();
 //		Date ngayMuon = new Date(date.getTime());
-//		Date ngayTra = Date.valueOf("2021-11-23");
+//		Date ngayMuon = Date.valueOf("2021-11-25");
+//		Date ngayTra = Date.valueOf("2021-11-27");
 //		
-//		DocGia docGia = docGiaDao.getDocGiaById("DocGia20211123716576");
-//		ThuThu thuThu = thuThuDao.getThuThuById("ThuThu20211123985775");
+//		DocGia docGia = docGiaDao.getDocGiaById("DocGia20211129595506");
+//		ThuThu thuThu = thuThuDao.getThuThuById("ThuThu20211129902342");
 //		PhieuMuon phieuMuon = new PhieuMuon(ngayMuon, ngayTra, "Chưa trả", thuThu, docGia);
 //		String check = phieuMuonDao.createPhieuMuon(phieuMuon);
 //		System.out.println(check);
@@ -104,6 +113,11 @@ public class App {
 //		phieuMuonDao.setTrangThaiDaTraById("PhieuMuon20211125120513");
 //		
 //		List<PhieuMuon> list = phieuMuonDao.getPhieuMuonQuaHan();
+//		for(int i = 0; i < list.size(); i++) {
+//			System.out.println(list.get(i).toString());
+//		}
+		
+//		List<PhieuMuon> list = phieuMuonDao.findPhieuMuonByKeyWord("615");
 //		for(int i = 0; i < list.size(); i++) {
 //			System.out.println(list.get(i).toString());
 //		}

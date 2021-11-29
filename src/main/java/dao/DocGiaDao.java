@@ -15,6 +15,8 @@ public interface DocGiaDao extends Remote{
 	
 	public List<DocGia> getAllDocGia() throws RemoteException;
 	
+	public List<DocGia> findDocGiaByKeyWord(String keyword) throws RemoteException;
+	
 	public boolean updateDocGia(DocGia docGia) throws RemoteException;
 	
 	public boolean deleteDocGiaById(String id) throws RemoteException;

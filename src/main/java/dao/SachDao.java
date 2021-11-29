@@ -46,6 +46,7 @@ public interface SachDao extends Remote{
 	 */ 
 	public List<Sach> getSachByProducer(String nhaXuatBan) throws RemoteException;
 	
+	public List<Sach> findSachByKeyWord(String keyword) throws RemoteException;
 	/**
 	 * @param sach
 	 * @return cập nhật các thông tin mới nhất cho một đối tượng Sách.
