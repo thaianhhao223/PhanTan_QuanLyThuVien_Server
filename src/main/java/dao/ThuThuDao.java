@@ -18,6 +18,8 @@ public interface ThuThuDao extends Remote{
 	
 	public ThuThu getThuThuById(String id) throws RemoteException;
 	
+	public ThuThu getThuThuByAccount(String account, String password) throws RemoteException;
+	
 	public List<ThuThu> getAllThuThu() throws RemoteException;
 	public boolean updateThuThu(ThuThu thuThu) throws RemoteException;
 	

@@ -136,6 +136,9 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 			if( count + chiTietPhieuMuon.getSoLuong() <= sach.getSoLuongBanIn()) {
 				tr.begin();
 				ChiTietPhieuMuon chiTietPhieuMuonUpdate = new ChiTietPhieuMuon();
+				sql = "Select ctpm from ChiTietPhieuMuon ctpm where phieuMuonId = :id and sachId = :sach";
+				chiTietPhieuMuonUpdate = (ChiTietPhieuMuon) session.createQuery(sql).setParameter("id", chiTietPhieuMuon.getPhieuMuon().getId())
+						.setParameter("sach", chiTietPhieuMuon.getSach().getId()).getSingleResult();
 				chiTietPhieuMuonUpdate.setSoLuong(chiTietPhieuMuon.getSoLuong());
 				chiTietPhieuMuonUpdate.setTrangThai(chiTietPhieuMuon.getTrangThai());
 				session.update(chiTietPhieuMuonUpdate);
@@ -154,16 +157,18 @@ public class ChiTietPhieuMuonImpl extends UnicastRemoteObject implements ChiTiet
 
 	public boolean deleteChiTietPhieuMuon(ChiTietPhieuMuon chiTietPhieuMuon) throws RemoteException {
 		// TODO Auto-generated method stub
-		Session session = em.unwrap(Session.class);
-		EntityTransaction tr = session.getTransaction();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
 		try {
 			tr.begin();
-			session.delete(chiTietPhieuMuon);
+			String sql = "delete from ChiTietPhieuMuon ctpm where phieuMuonId = :id and sachId = :sach";
+			session.createQuery(sql).setParameter("id", chiTietPhieuMuon.getPhieuMuon().getId())
+			.setParameter("sach", chiTietPhieuMuon.getSach().getId()).executeUpdate();
 			tr.commit();
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
 			tr.rollback();
+			e.printStackTrace();
 		}
 		return false;
 	}

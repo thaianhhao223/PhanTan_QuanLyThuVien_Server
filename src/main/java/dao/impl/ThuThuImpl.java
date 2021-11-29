@@ -134,5 +134,24 @@ public class ThuThuImpl extends UnicastRemoteObject implements ThuThuDao{
 		return false;
 	}
 
+	public ThuThu getThuThuByAccount(String account, String password) throws RemoteException {
+		// TODO Auto-generated method stub
+		ThuThu thuThu = new ThuThu();
+		Session session = em.unwrap(Session.class);;
+		EntityTransaction tr = em.getTransaction();
+		try {
+			
+			String sql = "Select tt from ThuThu tt where account = :account and password = :password";
+			thuThu = (ThuThu) session.createQuery(sql).setParameter("account", account)
+					.setParameter("password", password).getSingleResult();
+			
+			return thuThu;
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return thuThu;
+	}
+
 	
 }

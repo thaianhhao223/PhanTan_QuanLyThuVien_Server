@@ -71,7 +71,7 @@ public class App {
 		
 		ThuThuDao thuThuDao = new ThuThuImpl();
 		
-//		ThuThu thuThu = new ThuThu("Võ Thiên Hà", "Vĩnh Long", "12329312", "asxcc@gmail.com");
+//		ThuThu thuThu = new ThuThu("Thái Anh Hào", "Vĩnh Long", "12329312", "asxcc@gmail.com");
 //		if(thuThuDao.addThuThu(thuThu))
 //			System.out.println("Thêm thủ thư thành công");
 		
